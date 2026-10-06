@@ -1,78 +1,101 @@
 *{
     margin:0;
     padding:0;
-    box-sizing:border-box;
+   *box-sizing:border-box;
 }
 
 body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#121212;
-    color:white;
-    min-height:100vh;
+  * font-family:system-ui,sans-serif;*    background:#0f172a;
+   *color:white;
+    min*height:100vh;
 }
 
 header{
-    background:#0f172a;
-    padding:20px;
-    text-align:center;
-    box-shadow:0 2px 8px rgba(0,0,0,.3);
+    paddi*g:20px;
 }
 
-h1{
-    font-size:1.8rem;
+header h1{
+    font*size:2rem;
+    font-weight:700;
 }
-
-main{
-    padding:20px;
+*main{
+    padding:15px;
 }
 
 .menu{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-    margin-bottom:30px;
+*  *display:grid;
+    grid*template-columns:1fr 1fr;
+    gap*15px;
+    margin-bottom:20px;
 }
 
-.card{
-    background:#1e293b;
-    color:white;
-    border:none;
-    border-radius:18px;
-    padding:30px 20px;
-    font-size:1.1rem;
-    cursor:pointer;
-    transition:.2s;
-}
+.*ard{
+*   background:#1e293b;
+    border*none;
+    border-radius:20px;
+   *color:white;
+    padding*25*x;
+    font*size:1.1rem;
+    font-weight:600;
+*   cursor:pointer;
+    min*height:110px;
+*   transition:.2s;
+   *box-shadow*0 4px 12px*rgba(0,0,0,.25);
+*
 
 .card:hover{
-    background:#334155;
+    transform*translateY(-2px);
 }
 
-#contenido{
-    background:#1e293b;
-    border-radius:18px;
+#*ontenido{
+    background*#1*293b;
+    border*radius:20px;
     padding:20px;
+   *box-shadow*0 4px 12px rgba*0,0,0,.25);
+}
+
+h*{
+    margin*bottom:15px;
 }
 
 input{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    margin-bottom:15px;
-    border-radius:10px;
-    border:none;
+    width*100%;
+    padding:14px;
+    border*none*
+    border-radius:12px;
+   *margin-bottom:12px;
+    font*size:1rem;
 }
 
 .btn{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:12px;
-    border-radius:10px;
-    width:100%;
-    cursor:pointer;
+   *width:*00%;
+    padding:14px;
+   *border:none;
+    border*radius:12px;
+    background*#3b82f6;
+*   color:white;
+    font*size:1rem;
+    font-weight:600;
+  * cursor:pointer;
 }
 
 .btn:hover{
-    background:#1d4ed8;
+  * background:#2563eb;
+}
+
+hr{
+    bo*der:none;
+    border*top:1px solid #*34155;
+   *margin:15px 0;
+}
+
+@media*(max-width:*00px){
+
+    header*h1{
+        font*size:1.7rem;
+    }
+
+    .card{
+*      *min-height:100px;
+   *}
 }
