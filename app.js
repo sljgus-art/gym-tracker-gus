@@ -38,9 +38,10 @@ function mostrarPantalla(tipo) {
         contenido.innerHTML = `
             <h2>📈 Estadísticas</h2>
 
-            <p>Total de series registradas</p>
-
-            <h3>${totalSeries}</h3>
+            <div class="stat-card">
+                <p>Total de series registradas</p>
+                <div class="stat-number">${totalSeries}</div>
+            </div>
         `;
     }
 
@@ -60,7 +61,7 @@ function mostrarPantalla(tipo) {
             >
 
             <button class="btn" onclick="guardarPeso()">
-                Guardar
+                Guardar Peso
             </button>
         `;
     }
@@ -85,9 +86,9 @@ function guardarSerie() {
     const serie = {
         fecha: new Date().toLocaleDateString("es-ES"),
         ejercicio: ejercicio,
-        peso: peso,
-        reps: reps,
-        rir: rir
+        peso: Number(peso),
+        reps: Number(reps),
+        rir: rir ? Number(rir) : ""
     };
 
     const series = obtenerSeries();
@@ -123,13 +124,12 @@ function mostrarHistorial() {
     }
 
     lista.innerHTML = series.map(s => `
-        <div style="margin-bottom:15px;">
+        <div class="historial-item">
             <strong>${s.ejercicio}</strong><br>
             ${s.fecha}<br>
             ${s.peso} kg × ${s.reps}
-            ${s.rir ? `(RIR ${s.rir})` : ""}
+            ${s.rir !== "" ? `(RIR ${s.rir})` : ""}
         </div>
-        <hr>
     `).join("");
 }
 
@@ -157,7 +157,7 @@ if ("serviceWorker" in navigator) {
         navigator.serviceWorker
             .register("./service-worker.js")
             .then(() => {
-                console.log("Service Worker registrado");
+                console.log("✅ Service Worker registrado");
             })
             .catch(error => {
                 console.error("Error Service Worker:", error);
@@ -166,4 +166,3 @@ if ("serviceWorker" in navigator) {
     });
 
 }
-``
