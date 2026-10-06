@@ -2,6 +2,7 @@ const EJERCICIOS = {
 
     "Pecho": [
         "Press banca",
+        "Press banca pausado",
         "Press inclinado",
         "Press declinado",
         "Press mancuerna plano",
@@ -15,10 +16,12 @@ const EJERCICIOS = {
 
     "Espalda": [
         "Dominadas",
+        "Dominadas lastradas",
         "Jalón al pecho",
         "Jalón supino",
         "Jalón neutro",
         "Remo barra",
+        "Remo Pendlay",
         "Remo máquina",
         "Remo unilateral",
         "Remo T-Bar",
@@ -32,7 +35,8 @@ const EJERCICIOS = {
         "Elevaciones laterales",
         "Elevaciones posteriores",
         "Face Pull",
-        "Pájaros"
+        "Pájaros",
+        "Elevaciones frontales"
     ],
 
     "Bíceps": [
@@ -42,7 +46,8 @@ const EJERCICIOS = {
         "Curl inclinado",
         "Curl martillo",
         "Curl concentrado",
-        "Curl polea"
+        "Curl polea",
+        "Curl predicador"
     ],
 
     "Tríceps": [
@@ -56,26 +61,28 @@ const EJERCICIOS = {
 
     "Cuádriceps": [
         "Sentadilla",
+        "Sentadilla frontal",
         "Prensa",
         "Hack Squat",
-        "Sentadilla frontal",
         "Extensión cuádriceps",
         "Zancadas",
-        "Split Squat"
+        "Split Squat",
+        "Step Up"
     ],
 
     "Femoral": [
         "Peso muerto rumano",
+        "Buenos días",
         "Curl femoral sentado",
-        "Curl femoral tumbado",
-        "Buenos días"
+        "Curl femoral tumbado"
     ],
 
     "Glúteo": [
         "Hip Thrust",
         "Puente glúteo",
         "Abducción máquina",
-        "Patada glúteo"
+        "Patada glúteo",
+        "Peso muerto sumo"
     ],
 
     "Gemelo": [
@@ -86,6 +93,7 @@ const EJERCICIOS = {
 
     "Core": [
         "Plancha",
+        "Plancha lateral",
         "Crunch polea",
         "Crunch máquina",
         "Elevación piernas",
@@ -110,9 +118,10 @@ const EJERCICIOS = {
     ],
 
     "Rehabilitación": [
-        "Step Up",
         "Spanish Squat",
         "Terminal Knee Extension",
-        "Trabajo de rodilla"
+        "Step Up controlado",
+        "Trabajo de rodilla",
+        "Movilidad rodilla"
     ]
 };
