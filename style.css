@@ -33,7 +33,7 @@ main {
 .menu {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 12px;
     margin-bottom: 20px;
 }
 
@@ -46,11 +46,12 @@ main {
     border: none;
     border-radius: 20px;
     color: white;
-    padding: 25px;
+    padding: 20px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    min-height: 115px;
+    min-height: 90px;
+    text-align: center;
     transition: all 0.2s ease;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
@@ -76,6 +77,19 @@ h2 {
 
 p {
     line-height: 1.5;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+small {
+    color: #94a3b8;
 }
 
 input,
@@ -131,6 +145,7 @@ hr {
 
 .stat-card {
     background: #0f172a;
+    border: 1px solid #334155;
     border-radius: 16px;
     padding: 16px;
     text-align: center;
@@ -150,11 +165,10 @@ hr {
     }
 
     .card {
-        min-height: 100px;
-        padding: 20px;
+        min-height: 85px;
+        padding: 18px;
     }
 
     main {
         padding: 12px;
     }
-}
