@@ -43,21 +43,31 @@ function mostrarPantalla(tipo) {
 
     if (tipo === "estadisticas") {
 
-        const totalSeries = obtenerSeries().length;
+        const series = obtenerSeries();
+
+        const ejerciciosUnicos = [
+            ...new Set(series.map(s => s.ejercicio))
+        ];
 
         contenido.innerHTML = `
             <h2>📈 Estadísticas</h2>
 
             <div class="stat-card">
-                <p>Total de series registradas</p>
-                <div class="stat-number">${totalSeries}</div>
+                <p>Total series registradas</p>
+                <div class="stat-number">${series.length}</div>
+            </div>
+
+            <div class="stat-card">
+                <p>Ejercicios diferentes</p>
+                <div class="stat-number">${ejerciciosUnicos.length}</div>
             </div>
         `;
     }
 
     if (tipo === "peso") {
 
-        const ultimoPeso = localStorage.getItem("pesoCorporal") || "";
+        const ultimoPeso =
+            localStorage.getItem("pesoCorporal") || "";
 
         contenido.innerHTML = `
             <h2>⚖️ Peso Corporal</h2>
@@ -78,7 +88,9 @@ function mostrarPantalla(tipo) {
 }
 
 function obtenerSeries() {
-    return JSON.parse(localStorage.getItem("series")) || [];
+    return JSON.parse(
+        localStorage.getItem("series")
+    ) || [];
 }
 
 function cargarCategorias() {
@@ -133,7 +145,11 @@ function guardarSerie() {
         document.getElementById("rir").value;
 
     if (!peso || !reps) {
-        alert("Completa peso y repeticiones.");
+
+        alert(
+            "Completa peso y repeticiones."
+        );
+
         return;
     }
 
@@ -155,6 +171,8 @@ function guardarSerie() {
         JSON.stringify(series)
     );
 
+    actualizarResumen();
+
     alert("✅ Serie guardada");
 
     document.getElementById("peso").value = "";
@@ -164,9 +182,13 @@ function guardarSerie() {
 
 function mostrarHistorial() {
 
-    const lista = document.getElementById("listaHistorial");
+    const lista =
+        document.getElementById(
+            "listaHistorial"
+        );
 
-    const series = [...obtenerSeries()].reverse();
+    const series =
+        [...obtenerSeries()].reverse();
 
     if (series.length === 0) {
 
@@ -179,4 +201,133 @@ function mostrarHistorial() {
 
     lista.innerHTML = series.map(s => `
         <div class="historial-item">
-           
+
+            <strong>${s.ejercicio}</strong><br>
+
+            <small>${s.categoria}</small><br>
+
+            ${s.fecha}<br>
+
+            ${s.peso} kg × ${s.reps}
+
+            ${s.rir !== ""
+                ? `(RIR ${s.rir})`
+                : ""
+            }
+
+        </div>
+    `).join("");
+}
+
+function guardarPeso() {
+
+    const peso =
+        document.getElementById(
+            "pesoCorporal"
+        ).value;
+
+    if (!peso) {
+
+        alert("Introduce un peso.");
+
+        return;
+    }
+
+    localStorage.setItem(
+        "pesoCorporal",
+        peso
+    );
+
+    actualizarResumen();
+
+    alert("✅ Peso guardado");
+}
+
+function actualizarResumen() {
+
+    const totalSeries =
+        document.getElementById(
+            "totalSeries"
+        );
+
+    if (!totalSeries) return;
+
+    const series =
+        obtenerSeries();
+
+    const ejerciciosUnicos =
+        [...new Set(
+            series.map(
+                s => s.ejercicio
+            )
+        )];
+
+    const pesoActual =
+        document.getElementById(
+            "pesoActual"
+        );
+
+    const totalEjercicios =
+        document.getElementById(
+            "totalEjercicios"
+        );
+
+    const ultimoEntreno =
+        document.getElementById(
+            "ultimoEntreno"
+        );
+
+    totalSeries.textContent =
+        series.length;
+
+    totalEjercicios.textContent =
+        ejerciciosUnicos.length;
+
+    pesoActual.textContent =
+        localStorage.getItem(
+            "pesoCorporal"
+        ) || "--";
+
+    if (series.length > 0) {
+
+        const ultimo =
+            series[series.length - 1];
+
+        ultimoEntreno.innerHTML = `
+            ${ultimo.ejercicio}<br>
+            ${ultimo.peso} kg × ${ultimo.reps}
+        `;
+
+    } else {
+
+        ultimoEntreno.textContent =
+            "Sin registros";
+    }
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    actualizarResumen
+);
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", () => {
+
+        navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(() => {
+                console.log(
+                    "✅ Service Worker registrado"
+                );
+            })
+            .catch(error => {
+                console.error(
+                    "Error Service Worker:",
+                    error
+                );
+            });
+
+    });
+
+}
