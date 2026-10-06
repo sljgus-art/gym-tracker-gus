@@ -16,6 +16,7 @@ self.addEventListener("install", event => {
                 return cache.addAll(FILES_TO_CACHE);
             })
     );
+
 });
 
 self.addEventListener("fetch", event => {
@@ -26,4 +27,5 @@ self.addEventListener("fetch", event => {
                 return response || fetch(event.request);
             })
     );
+
 });
