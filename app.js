@@ -1,6 +1,14 @@
+function obtenerSeries() {
+    return JSON.parse(localStorage.getItem("series")) || [];
+}
+
 function mostrarPantalla(tipo) {
 
     const contenido = document.getElementById("contenido");
+
+    // -------------------
+    // ENTRENAR
+    // -------------------
 
     if (tipo === "rutina") {
 
@@ -8,19 +16,13 @@ function mostrarPantalla(tipo) {
             <h2>💪 Registrar Serie</h2>
 
             <label>Categoría</label>
-
-            <select id="categoria" onchange="actualizarEjercicios()">
-            </select>
+            <select id="categoria" onchange="actualizarEjercicios()"></select>
 
             <label>Ejercicio</label>
-
-            <select id="ejercicio">
-            </select>
+            <select id="ejercicio"></select>
 
             <input id="peso" type="number" placeholder="Peso (kg)">
-
             <input id="reps" type="number" placeholder="Repeticiones">
-
             <input id="rir" type="number" placeholder="RIR">
 
             <button class="btn" onclick="guardarSerie()">
@@ -30,6 +32,10 @@ function mostrarPantalla(tipo) {
 
         cargarCategorias();
     }
+
+    // -------------------
+    // HISTORIAL
+    // -------------------
 
     if (tipo === "historial") {
 
@@ -41,28 +47,53 @@ function mostrarPantalla(tipo) {
         mostrarHistorial();
     }
 
+    // -------------------
+    // ESTADÍSTICAS
+    // -------------------
+
     if (tipo === "estadisticas") {
 
         const series = obtenerSeries();
 
-        const ejerciciosUnicos = [
-            ...new Set(series.map(s => s.ejercicio))
-        ];
+        const ejerciciosUnicos =
+            [...new Set(series.map(s => s.ejercicio))];
+
+        const volumenTotal =
+            series.reduce(
+                (total, s) =>
+                    total + (s.peso * s.reps),
+                0
+            );
 
         contenido.innerHTML = `
             <h2>📈 Estadísticas</h2>
 
             <div class="stat-card">
-                <p>Total series registradas</p>
-                <div class="stat-number">${series.length}</div>
+                <p>Total series</p>
+                <div class="stat-number">
+                    ${series.length}
+                </div>
             </div>
 
             <div class="stat-card">
-                <p>Ejercicios diferentes</p>
-                <div class="stat-number">${ejerciciosUnicos.length}</div>
+                <p>Ejercicios distintos</p>
+                <div class="stat-number">
+                    ${ejerciciosUnicos.length}
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <p>Volumen total</p>
+                <div class="stat-number">
+                    ${Math.round(volumenTotal)}
+                </div>
             </div>
         `;
     }
+
+    // -------------------
+    // PESO CORPORAL
+    // -------------------
 
     if (tipo === "peso") {
 
@@ -76,8 +107,8 @@ function mostrarPantalla(tipo) {
                 id="pesoCorporal"
                 type="number"
                 step="0.1"
-                placeholder="Peso actual"
                 value="${ultimoPeso}"
+                placeholder="Peso actual"
             >
 
             <button class="btn" onclick="guardarPeso()">
@@ -85,12 +116,57 @@ function mostrarPantalla(tipo) {
             </button>
         `;
     }
-}
 
-function obtenerSeries() {
-    return JSON.parse(
-        localStorage.getItem("series")
-    ) || [];
+    // -------------------
+    // PRs
+    // -------------------
+
+    if (tipo === "prs") {
+
+        const prs = calcularPRs();
+
+        contenido.innerHTML =
+            `<h2>🏆 Récords Personales</h2>`;
+
+        Object.keys(prs).forEach(ejercicio => {
+
+            contenido.innerHTML += `
+                <div class="historial-item">
+                    <strong>
+                        ${ejercicio}
+                    </strong>
+                    <br>
+                    ${prs[ejercicio].peso} kg ×
+                    ${prs[ejercicio].reps}
+                </div>
+            `;
+        });
+    }
+
+    // -------------------
+    // BACKUP
+    // -------------------
+
+    if (tipo === "backup") {
+
+        contenido.innerHTML = `
+            <h2>💾 Copia de seguridad</h2>
+
+            <button class="btn"
+            onclick="exportarDatos()">
+                Exportar Backup
+            </button>
+
+            <br><br>
+
+            <input
+                type="file"
+                id="importarBackup"
+                accept=".json"
+                onchange="importarDatos(event)"
+            >
+        `;
+    }
 }
 
 function cargarCategorias() {
@@ -136,10 +212,10 @@ function guardarSerie() {
         document.getElementById("ejercicio").value;
 
     const peso =
-        document.getElementById("peso").value;
+        Number(document.getElementById("peso").value);
 
     const reps =
-        document.getElementById("reps").value;
+        Number(document.getElementById("reps").value);
 
     const rir =
         document.getElementById("rir").value;
@@ -147,19 +223,20 @@ function guardarSerie() {
     if (!peso || !reps) {
 
         alert(
-            "Completa peso y repeticiones."
+            "Completa peso y repeticiones"
         );
 
         return;
     }
 
     const serie = {
-        fecha: new Date().toLocaleDateString("es-ES"),
-        categoria: categoria,
-        ejercicio: ejercicio,
-        peso: Number(peso),
-        reps: Number(reps),
-        rir: rir ? Number(rir) : ""
+        fecha:
+            new Date().toLocaleDateString("es-ES"),
+        categoria,
+        ejercicio,
+        peso,
+        reps,
+        rir
     };
 
     const series = obtenerSeries();
@@ -174,10 +251,6 @@ function guardarSerie() {
     actualizarResumen();
 
     alert("✅ Serie guardada");
-
-    document.getElementById("peso").value = "";
-    document.getElementById("reps").value = "";
-    document.getElementById("rir").value = "";
 }
 
 function mostrarHistorial() {
@@ -192,9 +265,8 @@ function mostrarHistorial() {
 
     if (series.length === 0) {
 
-        lista.innerHTML = `
-            <p>No hay entrenamientos registrados.</p>
-        `;
+        lista.innerHTML =
+            "<p>No hay registros.</p>";
 
         return;
     }
@@ -202,15 +274,25 @@ function mostrarHistorial() {
     lista.innerHTML = series.map(s => `
         <div class="historial-item">
 
-            <strong>${s.ejercicio}</strong><br>
+            <strong>
+                ${s.ejercicio}
+            </strong>
 
-            <small>${s.categoria}</small><br>
+            <br>
 
-            ${s.fecha}<br>
+            <small>
+                ${s.categoria}
+            </small>
+
+            <br>
+
+            ${s.fecha}
+
+            <br>
 
             ${s.peso} kg × ${s.reps}
 
-            ${s.rir !== ""
+            ${s.rir
                 ? `(RIR ${s.rir})`
                 : ""
             }
@@ -226,13 +308,6 @@ function guardarPeso() {
             "pesoCorporal"
         ).value;
 
-    if (!peso) {
-
-        alert("Introduce un peso.");
-
-        return;
-    }
-
     localStorage.setItem(
         "pesoCorporal",
         peso
@@ -243,47 +318,59 @@ function guardarPeso() {
     alert("✅ Peso guardado");
 }
 
+function calcularPRs() {
+
+    const prs = {};
+
+    obtenerSeries().forEach(serie => {
+
+        const score =
+            serie.peso * serie.reps;
+
+        if (
+            !prs[serie.ejercicio] ||
+            score > prs[serie.ejercicio].score
+        ) {
+
+            prs[serie.ejercicio] = {
+                peso: serie.peso,
+                reps: serie.reps,
+                score: score
+            };
+        }
+
+    });
+
+    return prs;
+}
+
 function actualizarResumen() {
 
     const totalSeries =
-        document.getElementById(
-            "totalSeries"
-        );
+        document.getElementById("totalSeries");
 
     if (!totalSeries) return;
 
-    const series =
-        obtenerSeries();
+    const series = obtenerSeries();
 
-    const ejerciciosUnicos =
+    const ejercicios =
         [...new Set(
-            series.map(
-                s => s.ejercicio
-            )
+            series.map(s => s.ejercicio)
         )];
 
-    const pesoActual =
-        document.getElementById(
-            "pesoActual"
-        );
-
-    const totalEjercicios =
-        document.getElementById(
-            "totalEjercicios"
-        );
-
-    const ultimoEntreno =
-        document.getElementById(
-            "ultimoEntreno"
-        );
-
-    totalSeries.textContent =
+    document.getElementById(
+        "totalSeries"
+    ).textContent =
         series.length;
 
-    totalEjercicios.textContent =
-        ejerciciosUnicos.length;
+    document.getElementById(
+        "totalEjercicios"
+    ).textContent =
+        ejercicios.length;
 
-    pesoActual.textContent =
+    document.getElementById(
+        "pesoActual"
+    ).textContent =
         localStorage.getItem(
             "pesoCorporal"
         ) || "--";
@@ -293,16 +380,82 @@ function actualizarResumen() {
         const ultimo =
             series[series.length - 1];
 
-        ultimoEntreno.innerHTML = `
+        document.getElementById(
+            "ultimoEntreno"
+        ).innerHTML = `
             ${ultimo.ejercicio}<br>
             ${ultimo.peso} kg × ${ultimo.reps}
         `;
-
-    } else {
-
-        ultimoEntreno.textContent =
-            "Sin registros";
     }
+}
+
+function exportarDatos() {
+
+    const datos = {
+
+        series:
+            obtenerSeries(),
+
+        peso:
+            localStorage.getItem(
+                "pesoCorporal"
+            )
+    };
+
+    const blob =
+        new Blob(
+            [JSON.stringify(datos)],
+            {
+                type:
+                    "application/json"
+            }
+        );
+
+    const enlace =
+        document.createElement("a");
+
+    enlace.href =
+        URL.createObjectURL(blob);
+
+    enlace.download =
+        "gym-tracker-backup.json";
+
+    enlace.click();
+}
+
+function importarDatos(event) {
+
+    const archivo =
+        event.target.files[0];
+
+    if (!archivo) return;
+
+    const lector =
+        new FileReader();
+
+    lector.onload = e => {
+
+        const datos =
+            JSON.parse(e.target.result);
+
+        localStorage.setItem(
+            "series",
+            JSON.stringify(datos.series)
+        );
+
+        localStorage.setItem(
+            "pesoCorporal",
+            datos.peso
+        );
+
+        actualizarResumen();
+
+        alert(
+            "✅ Backup restaurado"
+        );
+    };
+
+    lector.readAsText(archivo);
 }
 
 document.addEventListener(
@@ -315,18 +468,7 @@ if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
 
         navigator.serviceWorker
-            .register("./service-worker.js")
-            .then(() => {
-                console.log(
-                    "✅ Service Worker registrado"
-                );
-            })
-            .catch(error => {
-                console.error(
-                    "Error Service Worker:",
-                    error
-                );
-            });
+            .register("./service-worker.js");
 
     });
 
