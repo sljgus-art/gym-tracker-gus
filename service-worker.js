@@ -1,11 +1,12 @@
-const CACHE_NAME = "gym-tracker-gus-v1";
+const CACHE_NAME = "gym-tracker-gus-v2";
 
 const FILES_TO_CACHE = [
     "./",
     "./index.html",
     "./style.css",
     "./app.js",
-    "./manifest.json"
+    "./manifest.json",
+    "./ejercicios.js"
 ];
 
 self.addEventListener("install", event => {
@@ -16,6 +17,24 @@ self.addEventListener("install", event => {
                 return cache.addAll(FILES_TO_CACHE);
             })
     );
+
+    self.skipWaiting();
+
+});
+
+self.addEventListener("activate", event => {
+
+    event.waitUntil(
+        caches.keys().then(keys => {
+            return Promise.all(
+                keys
+                    .filter(key => key !== CACHE_NAME)
+                    .map(key => caches.delete(key))
+            );
+        })
+    );
+
+    self.clients.claim();
 
 });
 
