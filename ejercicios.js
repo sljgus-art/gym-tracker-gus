@@ -3,6 +3,7 @@ const EJERCICIOS = {
     "Pecho": [
         "Press banca",
         "Press inclinado",
+        "Press declinado",
         "Press mancuerna plano",
         "Press mancuerna inclinado",
         "Press convergente",
@@ -16,16 +17,18 @@ const EJERCICIOS = {
         "Dominadas",
         "Jalón al pecho",
         "Jalón supino",
+        "Jalón neutro",
         "Remo barra",
         "Remo máquina",
         "Remo unilateral",
-        "Pullover polea",
-        "Remo T-Bar"
+        "Remo T-Bar",
+        "Pullover polea"
     ],
 
     "Hombro": [
         "Press militar",
         "Press hombro mancuerna",
+        "Press Arnold",
         "Elevaciones laterales",
         "Elevaciones posteriores",
         "Face Pull",
@@ -38,12 +41,14 @@ const EJERCICIOS = {
         "Curl mancuernas",
         "Curl inclinado",
         "Curl martillo",
+        "Curl concentrado",
         "Curl polea"
     ],
 
     "Tríceps": [
         "Press francés",
         "Extensión polea",
+        "Extensión cuerda",
         "Extensión unilateral",
         "Fondos banco",
         "Press cerrado"
@@ -53,9 +58,10 @@ const EJERCICIOS = {
         "Sentadilla",
         "Prensa",
         "Hack Squat",
+        "Sentadilla frontal",
         "Extensión cuádriceps",
         "Zancadas",
-        "Split squat"
+        "Split Squat"
     ],
 
     "Femoral": [
@@ -81,6 +87,7 @@ const EJERCICIOS = {
     "Core": [
         "Plancha",
         "Crunch polea",
+        "Crunch máquina",
         "Elevación piernas",
         "Ab Wheel",
         "Woodchopper"
