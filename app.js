@@ -93,7 +93,10 @@ if (tipo === "rutina") {
             <select id="categoria" onchange="actualizarEjercicios()"></select>
 
             <label>Ejercicio</label>
-            <select id="ejercicio"></select>
+            <select
+		 id="ejercicio"
+		 onchange="actualizarPesoAutomatico()">
+	    </select>
 
             <input id="peso" type="number" placeholder="Peso (kg)">
             <input id="reps" type="number" placeholder="Repeticiones">
@@ -406,6 +409,31 @@ function actualizarEjercicios() {
                 </option>`
             )
             .join("");
+
+    actualizarPesoAutomatico();
+}
+
+function actualizarPesoAutomatico() {
+
+    const ejercicio =
+        document.getElementById("ejercicio").value;
+
+    const pesoInput =
+        document.getElementById("peso");
+
+    if (!pesoInput) return;
+
+    const ultimoPeso =
+        obtenerUltimoPesoValor(ejercicio);
+
+    if (ultimoPeso !== "") {
+
+        pesoInput.value = ultimoPeso;
+
+    } else {
+
+        pesoInput.value = "";
+    }
 }
 
 function guardarSerie() {
