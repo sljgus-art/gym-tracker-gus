@@ -101,6 +101,25 @@ const EJERCICIOS = {
         "Woodchopper"
     ],
 
+    "Antebrazo": [
+        "Curl muñeca",
+        "Curl muñeca inverso",
+        "Farmer Walk",
+        "Agarre estático"
+    ],
+
+    "Trapecio": [
+        "Encogimientos barra",
+        "Encogimientos mancuernas",
+        "Remo al mentón"
+    ],
+
+    "Cuello": [
+        "Flexión cuello",
+        "Extensión cuello",
+        "Lateral cuello"
+    ],
+
     "Cardio": [
         "Caminar",
         "Cinta inclinada",
@@ -122,6 +141,10 @@ const EJERCICIOS = {
         "Terminal Knee Extension",
         "Step Up controlado",
         "Trabajo de rodilla",
-        "Movilidad rodilla"
+        "Movilidad rodilla",
+        "Sentadilla cajón",
+        "Wall Sit",
+        "Equilibrio monopodal",
+        "Trabajo propioceptivo"
     ]
 };
