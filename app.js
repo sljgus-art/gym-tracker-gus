@@ -482,7 +482,8 @@ function guardarSerie() {
 
     alert("✅ Serie guardada");
 
-    document.getElementById("peso").value = "";
+    actualizarPesoAutomatico();
+
     document.getElementById("reps").value = "";
     document.getElementById("rir").value = "";
 }
