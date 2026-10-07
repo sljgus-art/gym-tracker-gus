@@ -1,13 +1,90 @@
 function obtenerSeries() {
-    return JSON.parse(localStorage.getItem("series")) || [];
+return JSON.parse(localStorage.getItem("series")) || [];
 }
-
+ 
+function obtenerPrograma12() {
+ 
+return JSON.parse(
+localStorage.getItem("programa12")
+) || {
+fechaInicio: new Date().toISOString().split("T")[0],
+objetivoEntrenosSemana: 3,
+semanas: 12
+};
+}
+ 
+function obtenerPesos() {
+ 
+return JSON.parse(
+localStorage.getItem("pesosHistorico")
+) || [];
+}
+ 
+function obtenerMedidas() {
+ 
+return JSON.parse(
+localStorage.getItem("medidasCorporales")
+) || [];
+}
+ 
+function obtenerSemanaActual() {
+ 
+const programa = obtenerPrograma12();
+ 
+const inicio = new Date(programa.fechaInicio);
+ 
+const hoy = new Date();
+ 
+const dias = Math.floor(
+(hoy - inicio) /
+(1000 * 60 * 60 * 24)
+);
+ 
+let semana =
+Math.floor(dias / 7) + 1;
+ 
+if (semana < 1) semana = 1;
+if (semana > 12) semana = 12;
+ 
+return semana;
+}
+ 
+function calcularAdherencia() {
+ 
+const series =
+obtenerSeries();
+ 
+const programa =
+obtenerPrograma12();
+ 
+const entrenosRealizados =
+[...new Set(
+series.map(s => s.fecha)
+)].length;
+ 
+const semanasActuales =
+obtenerSemanaActual();
+ 
+const entrenosEsperados =
+semanasActuales *
+programa.objetivoEntrenosSemana;
+ 
+if (entrenosEsperados === 0)
+return 0;
+ 
+return Math.round(
+(entrenosRealizados /
+entrenosEsperados) * 100
+);
+}
+ 
 function mostrarPantalla(tipo) {
+ 
+const contenido =
+document.getElementById("contenido");
 
-    const contenido = document.getElementById("contenido");
-
-    // ENTRENAR
-    if (tipo === "rutina") {
+// ENTRENAR
+if (tipo === "rutina") {
 
         contenido.innerHTML = `
             <h2>💪 Registrar Serie</h2>
@@ -103,6 +180,59 @@ function mostrarPantalla(tipo) {
             </button>
         `;
     }
+
+// PROGRAMA 12 SEMANAS
+if (tipo === "programa12") {
+
+    const semanaActual =
+        obtenerSemanaActual();
+
+    const adherencia =
+        calcularAdherencia();
+
+    const progreso =
+        Math.round(
+            (semanaActual / 12) * 100
+        );
+
+    contenido.innerHTML = `
+    <h2>🎯 Programa 12 Semanas</h2>
+
+    <div class="stat-card">
+        <p>Semana actual</p>
+        <div class="stat-number">
+            ${semanaActual}/12
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <p>Progreso</p>
+        <div class="stat-number">
+            ${progreso}%
+        </div>
+
+        <div class="progress-container">
+            <div
+                class="progress-bar"
+                style="width:${progreso}%"
+            ></div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <p>Adherencia</p>
+        <div class="stat-number">
+            ${adherencia}%
+        </div>
+    </div>
+
+    <div class="objetivo-card">
+        <strong>Objetivo</strong><br>
+        Completar 12 semanas de entrenamiento
+        con una adherencia superior al 80%.
+    </div>
+`;
+}
 
     // PRS
     if (tipo === "prs") {
