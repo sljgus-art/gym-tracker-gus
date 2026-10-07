@@ -1,6 +1,7 @@
 {
   "name": "Gym Tracker Gus",
   "short_name": "GymGus",
+  "description": "Registro de entrenamientos, PRs, peso corporal y programa de 12 semanas",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#121212",
