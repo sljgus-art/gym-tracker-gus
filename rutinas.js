@@ -8,7 +8,8 @@ const RUTINAS = {
             reps: "6-8",
             rir: 2,
             descanso: "3 min",
-            tecnica: "Normal"
+            tecnica: "Normal",
+            progresion: "Subir 2.5 kg cuando completes 4x8"
         },
 
         {
@@ -17,7 +18,8 @@ const RUTINAS = {
             reps: "8-10",
             rir: 2,
             descanso: "2 min",
-            tecnica: "Normal"
+            tecnica: "Normal",
+            progresion: "Subir 5 kg cuando completes 3x10"
         },
 
         {
@@ -26,7 +28,8 @@ const RUTINAS = {
             reps: "8-10",
             rir: 2,
             descanso: "2 min",
-            tecnica: "Rest Pause última serie"
+            tecnica: "Normal",
+            progresion: "Subir 5 kg cuando completes 3x10"
         },
 
         {
@@ -35,7 +38,8 @@ const RUTINAS = {
             reps: "6-8",
             rir: 2,
             descanso: "2 min",
-            tecnica: "Normal"
+            tecnica: "Normal",
+            progresion: "Subir 2.5 kg cuando completes 3x8"
         },
 
         {
@@ -44,7 +48,8 @@ const RUTINAS = {
             reps: "10-12",
             rir: 1,
             descanso: "90 s",
-            tecnica: "Drop Set última serie"
+            tecnica: "Drop Set última serie",
+            progresion: "Subir 2.5 kg cuando completes 3x12"
         },
 
         {
@@ -53,7 +58,8 @@ const RUTINAS = {
             reps: "12-15",
             rir: 1,
             descanso: "60 s",
-            tecnica: "Drop Set última serie"
+            tecnica: "Drop Set última serie",
+            progresion: "Subir 5 kg cuando completes 3x15"
         }
     ],
 
@@ -65,7 +71,8 @@ const RUTINAS = {
             reps: "8-10",
             rir: 2,
             descanso: "3 min",
-            tecnica: "Normal"
+            tecnica: "Recorrido seguro para rodilla",
+            progresion: "Subir 10 kg cuando completes 4x10"
         },
 
         {
@@ -74,7 +81,8 @@ const RUTINAS = {
             reps: "6-8",
             rir: 2,
             descanso: "3 min",
-            tecnica: "Normal"
+            tecnica: "Normal",
+            progresion: "Subir 5 kg cuando completes 4x8"
         },
 
         {
@@ -83,7 +91,8 @@ const RUTINAS = {
             reps: "8-10",
             rir: 1,
             descanso: "2 min",
-            tecnica: "Pause de 2 s arriba"
+            tecnica: "Pausa de 2 segundos arriba",
+            progresion: "Subir 5 kg cuando completes 4x10"
         },
 
         {
@@ -92,7 +101,8 @@ const RUTINAS = {
             reps: "10-12",
             rir: 1,
             descanso: "90 s",
-            tecnica: "Rest Pause"
+            tecnica: "Rest Pause última serie",
+            progresion: "Subir 5 kg cuando completes 3x12"
         },
 
         {
@@ -101,7 +111,8 @@ const RUTINAS = {
             reps: "12-15",
             rir: 1,
             descanso: "60 s",
-            tecnica: "Drop Set"
+            tecnica: "Drop Set última serie",
+            progresion: "Subir 5 kg cuando completes 4x15"
         }
     ],
 
@@ -113,7 +124,8 @@ const RUTINAS = {
             reps: "6-8",
             rir: 2,
             descanso: "3 min",
-            tecnica: "Normal"
+            tecnica: "Normal",
+            progresion: "Subir 2.5 kg cuando completes 4x8"
         },
 
         {
@@ -122,7 +134,8 @@ const RUTINAS = {
             reps: "6-10",
             rir: 2,
             descanso: "3 min",
-            tecnica: "Lastradas cuando sea posible"
+            tecnica: "Lastradas cuando sea posible",
+            progresion: "Añadir 2.5 kg de lastre cuando completes 4x10"
         },
 
         {
@@ -131,7 +144,8 @@ const RUTINAS = {
             reps: "8-10",
             rir: 2,
             descanso: "2 min",
-            tecnica: "Normal"
+            tecnica: "Normal",
+            progresion: "Subir 2.5 kg cuando completes 3x10"
         },
 
         {
@@ -140,7 +154,8 @@ const RUTINAS = {
             reps: "12-15",
             rir: 1,
             descanso: "60 s",
-            tecnica: "Drop Set final"
+            tecnica: "Drop Set final",
+            progresion: "Subir 2 kg cuando completes 4x15"
         },
 
         {
@@ -149,7 +164,8 @@ const RUTINAS = {
             reps: "10-12",
             rir: 1,
             descanso: "90 s",
-            tecnica: "Normal"
+            tecnica: "Normal",
+            progresion: "Subir 2 kg cuando completes 3x12"
         },
 
         {
@@ -158,7 +174,8 @@ const RUTINAS = {
             reps: "10-12",
             rir: 1,
             descanso: "90 s",
-            tecnica: "Rest Pause final"
+            tecnica: "Rest Pause final",
+            progresion: "Subir 2.5 kg cuando completes 3x12"
         }
     ],
 
@@ -170,7 +187,8 @@ const RUTINAS = {
             reps: "20-40 min",
             rir: "-",
             descanso: "-",
-            tecnica: "Zona 2"
+            tecnica: "Zona 2",
+            progresion: "Aumentar 5 minutos cada 2 semanas"
         },
 
         {
@@ -179,7 +197,8 @@ const RUTINAS = {
             reps: "12-15",
             rir: 1,
             descanso: "60 s",
-            tecnica: "Normal"
+            tecnica: "Normal",
+            progresion: "Aumentar repeticiones o carga"
         },
 
         {
@@ -188,7 +207,8 @@ const RUTINAS = {
             reps: "10-15 min",
             rir: "-",
             descanso: "-",
-            tecnica: "Controlada"
+            tecnica: "Controlada",
+            progresion: "Aumentar tiempo gradualmente"
         }
     ]
 };
