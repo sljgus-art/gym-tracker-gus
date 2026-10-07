@@ -273,7 +273,7 @@ if (tipo === "programa12") {
         `;
     }
 
-    // RUTINAS
+// RUTINAS
 if (tipo === "rutinas") {
 
     contenido.innerHTML = `
@@ -317,7 +317,15 @@ if (tipo === "rutinas") {
 
                     <br>
 
-                    📈 Progresión: ${ejercicio.progresion}
+                    🏋️ Último peso:
+                    ${obtenerUltimoPesoEjercicio(
+                        ejercicio.ejercicio
+                    )}
+
+                    <br>
+
+                    📈 Progresión:
+                    ${ejercicio.progresion}
 
                 </div>
             `;
@@ -548,6 +556,21 @@ function obtenerUltimoPesoEjercicio(nombreEjercicio) {
         registros[registros.length - 1];
 
     return `${ultimo.peso} kg × ${ultimo.reps}`;
+}
+
+function obtenerUltimoPesoValor(nombreEjercicio) {
+
+    const series = obtenerSeries();
+
+    const registros = series.filter(
+        s => s.ejercicio === nombreEjercicio
+    );
+
+    if (registros.length === 0) {
+        return "";
+    }
+
+    return registros[registros.length - 1].peso;
 }
 
 function actualizarResumen() {
