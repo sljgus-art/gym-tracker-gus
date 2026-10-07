@@ -274,27 +274,57 @@ if (tipo === "programa12") {
     }
 
     // RUTINAS
-    if (tipo === "rutinas") {
+if (tipo === "rutinas") {
 
-        contenido.innerHTML = `
-            <h2>📋 Rutinas</h2>
+    contenido.innerHTML = `
+        <h2>📋 Rutinas</h2>
+    `;
+
+    Object.keys(RUTINAS).forEach(nombreRutina => {
+
+        contenido.innerHTML += `
+            <div class="historial-item">
+                <h3>${nombreRutina}</h3>
+            </div>
         `;
 
-        Object.keys(RUTINAS).forEach(rutina => {
+        RUTINAS[nombreRutina].forEach(ejercicio => {
 
             contenido.innerHTML += `
                 <div class="historial-item">
 
-                    <strong>${rutina}</strong>
+                    <strong>${ejercicio.ejercicio}</strong>
 
                     <br><br>
 
-                    ${RUTINAS[rutina].join("<br>")}
+                    📦 Series: ${ejercicio.series}
+
+                    <br>
+
+                    🔁 Repeticiones: ${ejercicio.reps}
+
+                    <br>
+
+                    🎯 RIR: ${ejercicio.rir}
+
+                    <br>
+
+                    ⏱ Descanso: ${ejercicio.descanso}
+
+                    <br>
+
+                    ⚡ Técnica: ${ejercicio.tecnica}
+
+                    <br>
+
+                    📈 Progresión: ${ejercicio.progresion}
 
                 </div>
             `;
         });
-    }
+
+    });
+}
 
     // PROGRESO
     if (tipo === "progreso") {
@@ -500,6 +530,24 @@ function calcularPRs() {
     });
 
     return prs;
+}
+
+function obtenerUltimoPesoEjercicio(nombreEjercicio) {
+
+    const series = obtenerSeries();
+
+    const registros = series.filter(
+        s => s.ejercicio === nombreEjercicio
+    );
+
+    if (registros.length === 0) {
+        return "Sin registros";
+    }
+
+    const ultimo =
+        registros[registros.length - 1];
+
+    return `${ultimo.peso} kg × ${ultimo.reps}`;
 }
 
 function actualizarResumen() {
