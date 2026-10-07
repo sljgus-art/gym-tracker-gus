@@ -1,4 +1,4 @@
-const CACHE_NAME = "gym-tracker-gus-v10";
+const CACHE_NAME = "gym-tracker-gus-v11";
 
 const FILES_TO_CACHE = [
     "./",
@@ -6,7 +6,8 @@ const FILES_TO_CACHE = [
     "./style.css",
     "./app.js",
     "./manifest.json",
-    "./ejercicios.js"
+    "./ejercicios.js",
+    "./rutinas.js"
 ];
 
 self.addEventListener("install", event => {
