@@ -50,59 +50,32 @@ return semana;
 }
  
 function calcularAdherencia() {
- 
-const series =
-    obtenerSeries();
 
-const registrosPrevios = series.filter(
-    s => s.ejercicio === ejercicio
-);
+    const series =
+        obtenerSeries();
 
-let esNuevoPR = false;
+    const programa =
+        obtenerPrograma12();
 
-if (registrosPrevios.length === 0) {
+    const entrenosRealizados =
+        [...new Set(
+            series.map(s => s.fecha)
+        )].length;
 
-    esNuevoPR = true;
+    const semanasActuales =
+        obtenerSemanaActual();
 
-} else {
+    const entrenosEsperados =
+        semanasActuales *
+        programa.objetivoEntrenosSemana;
 
-    const mejorScoreAnterior = Math.max(
-        ...registrosPrevios.map(
-            s => s.peso * s.reps
-        )
+    if (entrenosEsperados === 0)
+        return 0;
+
+    return Math.round(
+        (entrenosRealizados /
+        entrenosEsperados) * 100
     );
-
-    const scoreActual =
-        peso * reps;
-
-    esNuevoPR =
-        scoreActual > mejorScoreAnterior;
-}
-
-series.push(serie);
- 
-const programa =
-obtenerPrograma12();
- 
-const entrenosRealizados =
-[...new Set(
-series.map(s => s.fecha)
-)].length;
- 
-const semanasActuales =
-obtenerSemanaActual();
- 
-const entrenosEsperados =
-semanasActuales *
-programa.objetivoEntrenosSemana;
- 
-if (entrenosEsperados === 0)
-return 0;
- 
-return Math.round(
-(entrenosRealizados /
-entrenosEsperados) * 100
-);
 }
  
 function mostrarPantalla(tipo) {
@@ -531,6 +504,31 @@ function guardarSerie() {
 
     const series = obtenerSeries();
 
+    const registrosPrevios = series.filter(
+        s => s.ejercicio === ejercicio
+    );
+
+    let esNuevoPR = false;
+
+    if (registrosPrevios.length === 0) {
+
+        esNuevoPR = true;
+
+    } else {
+
+        const mejorScoreAnterior = Math.max(
+            ...registrosPrevios.map(
+                s => s.peso * s.reps
+            )
+        );
+
+        const scoreActual =
+            peso * reps;
+
+        esNuevoPR =
+            scoreActual > mejorScoreAnterior;
+    }
+
     series.push(serie);
 
     localStorage.setItem(
@@ -540,23 +538,24 @@ function guardarSerie() {
 
     actualizarResumen();
 
-if (esNuevoPR) {
+    if (esNuevoPR) {
 
-    alert(
-        `🏆 NUEVO PR\n\n${ejercicio}\n${peso} kg × ${reps}`
-    );
+        alert(
+            `🏆 NUEVO PR\n\n${ejercicio}\n${peso} kg × ${reps}`
+        );
 
-} else {
+    } else {
 
-    alert("✅ Serie guardada");
+        alert("✅ Serie guardada");
 
-}
+    }
 
-actualizarPesoAutomatico();
+    actualizarPesoAutomatico();
 
     document.getElementById("reps").value = "";
-    document.getElementById("rir").value = "";
-}
+    document.getElementById
+
+	}
 
 function mostrarHistorial() {
 
