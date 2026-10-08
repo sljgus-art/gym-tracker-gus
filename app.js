@@ -283,6 +283,39 @@ if (tipo === "programa12") {
         });
     }
 
+// CALENDARIO
+if (tipo === "calendario") {
+
+    const series = obtenerSeries();
+
+    const diasEntrenados = [
+        ...new Set(series.map(s => s.fecha))
+    ];
+
+    contenido.innerHTML = `
+        <h2>📅 Calendario de entrenamiento</h2>
+
+        <div class="stat-card">
+            <p>Días entrenados</p>
+            <div class="stat-number">
+                ${diasEntrenados.length}
+            </div>
+        </div>
+    `;
+
+    diasEntrenados
+        .slice()
+        .reverse()
+        .forEach(fecha => {
+
+            contenido.innerHTML += `
+                <div class="historial-item">
+                    ✅ ${fecha}
+                </div>
+            `;
+        });
+}
+	
     // BACKUP
     if (tipo === "backup") {
 
