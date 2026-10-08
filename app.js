@@ -52,7 +52,34 @@ return semana;
 function calcularAdherencia() {
  
 const series =
-obtenerSeries();
+    obtenerSeries();
+
+const registrosPrevios = series.filter(
+    s => s.ejercicio === ejercicio
+);
+
+let esNuevoPR = false;
+
+if (registrosPrevios.length === 0) {
+
+    esNuevoPR = true;
+
+} else {
+
+    const mejorScoreAnterior = Math.max(
+        ...registrosPrevios.map(
+            s => s.peso * s.reps
+        )
+    );
+
+    const scoreActual =
+        peso * reps;
+
+    esNuevoPR =
+        scoreActual > mejorScoreAnterior;
+}
+
+series.push(serie);
  
 const programa =
 obtenerPrograma12();
@@ -480,9 +507,19 @@ function guardarSerie() {
 
     actualizarResumen();
 
+if (esNuevoPR) {
+
+    alert(
+        `🏆 NUEVO PR\n\n${ejercicio}\n${peso} kg × ${reps}`
+    );
+
+} else {
+
     alert("✅ Serie guardada");
 
-    actualizarPesoAutomatico();
+}
+
+actualizarPesoAutomatico();
 
     document.getElementById("reps").value = "";
     document.getElementById("rir").value = "";
